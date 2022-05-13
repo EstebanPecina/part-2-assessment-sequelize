@@ -240,4 +240,17 @@ module.exports = {
         .then(dbRes => res.status(200).send(dbRes[0]))
         .catch(err => console.log(err))
     },
+    createCity: (req, res) => {
+        sequelize.query(`SELECT city_id, name, rating
+        FROM cities;
+        
+        SELECT country_id, name
+        FROM countries
+        INNER JOIN countries ON countries.country_id=cities.country_id`
+        .then(dbRes => res.status(200).send(dbRes[0]))
+        .catch(err => console.log(err)))
+    },
+    deleteCity: (req, res) => {
+        sequelize.query(`DELETE FROM cities WHERE city_id`)
+    }
 }
